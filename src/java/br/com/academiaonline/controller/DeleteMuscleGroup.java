@@ -7,8 +7,8 @@ package br.com.academiaonline.controller;
 
 import br.com.academiaonline.DAO.GenericDAO;
 import br.com.academiaonline.DAO.MuscleGroupDAOImpl;
-import br.com.academiaonline.model.MuscleGroup;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Diego
  */
-@WebServlet(name = "SaveMuscleGroup", urlPatterns = {"/SaveMuscleGroup"})
-public class SaveMuscleGroup extends HttpServlet {
+@WebServlet(name = "DeleteMuscleGroup", urlPatterns = {"/DeleteMuscleGroup"})
+public class DeleteMuscleGroup extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,43 +34,17 @@ public class SaveMuscleGroup extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=ISO-8859-1");
-
-        String message = null;
-
-        MuscleGroup muscleGroup = new MuscleGroup();
-        muscleGroup.setName(request.getParameter("namemusclegroup"));
-        muscleGroup.setDescription(request.getParameter("descriptionmusclegroup"));
-
+        int idMuscleGroup = Integer.parseInt(request.getParameter("idmusclegroup"));
+        
         try {
-
             GenericDAO dao = new MuscleGroupDAOImpl();
-
-            if (request.getParameter("idmusclegroup").equals("")) {
-
-                if (dao.save(muscleGroup)) {
-                    message = "Grupo Muscular " + muscleGroup.getName() + " cadastrado com sucesso!";
-                } else {
-                    message = "Problemas ao cadastrar Grupo Muscular " + muscleGroup.getName() + "!";
-                }
-
-            } else {
-                
-                muscleGroup.setId(Integer.parseInt(request.getParameter("idmusclegroup")));
-                
-                if (dao.update(muscleGroup)) {
-                    message = "Grupo Muscular " + muscleGroup.getName() + " alterado com sucesso!";
-                } else {
-                    message = "Problemas ao alterar Grupo Muscular " + muscleGroup.getName() + "!";
-                }
-            }
-
+            dao.deleteById(idMuscleGroup);
+            request.getRequestDispatcher("ListMuscleGroup").forward(request, response);
+            
         } catch (Exception ex) {
-            System.out.println("Problemas ao cadastrar Grupo Muscular! Erro: " + ex.getMessage());
+            System.out.println("Problemas ao excluir Grupo Muscular! Erro: " + ex.getMessage());
             ex.printStackTrace();
         }
-
-        request.setAttribute("return", message);
-        request.getRequestDispatcher("musclegroup/save.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -14,12 +14,13 @@
     <body>
         <h1>Cadastro de Grupo Muscular</h1>
         <form name="savemusclegroup" action="${pageContext.request.contextPath}/SaveMuscleGroup" method="POST">
-            <label for="idmusclegroup">ID: </label><input type="number" name="idmusclegroup" id="idmusclegroup" readonly/>
-            <label for="namemusclegroup">Nome: </label><input type="text" name="namemusclegroup" id="namemusclegroup" required/>
+            <label for="idmusclegroup">ID: </label><input type="number" name="idmusclegroup" id="idmusclegroup" value="${musclegroup.id}" readonly/>
+            <label for="namemusclegroup">Nome: </label><input type="text" name="namemusclegroup" id="namemusclegroup" value="${musclegroup.name}" required/>
             <label for="descriptionmusclegroup">Descrição: </label>
-            <textarea type="text" name="descriptionmusclegroup" id="descriptionmusclegroup" rows="5" cols="60" required></textarea>
+            <textarea type="text" name="descriptionmusclegroup" id="descriptionmusclegroup" rows="5" cols="60" required>${musclegroup.description}</textarea>
             <input type="submit" name="save" value="Salvar" />
             <h3>${return}</h3>
         </form>
+        <a href="${pageContext.request.contextPath}/index.html">Home</a>
     </body>
 </html>
