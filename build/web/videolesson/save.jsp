@@ -4,6 +4,7 @@
     Author     : Diego
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -20,11 +21,19 @@
             <textarea type="text" name="descriptionvideolesson" id="descriptionvideolesson" rows="5" cols="60" required>${videolesson.description}</textarea>
             <label for="linkvideolesson">Link: </label><input type="text" name="linkvideolesson" id="linkvideolesson" value="${videolesson.link}" required/>
             <label for="datevideolesson">Data de publicação: </label><input type="date" name="datevideolesson" id="datevideolesson" value="${videolesson.publicationDate}" required/>
-          
-            <input type="radio" name="status" value="true" checked/> <label for="status">Ativo </label><br />
-            <input type="radio" name="status" value="false" checked/> <label for="status">Inativo </label><br />
-            
+
+            <input type="radio" name="status" id="statustrue" value="true" checked/> <label for="statustrue">Ativo </label><br />
+            <input type="radio" name="status" id="statusfalse" value="false"/> <label for="statusfalse">Inativo </label><br />
+
+            <label for="idmusclegroup">Grupo Muscular:</label>
+            <select name="idmusclegroup" id="idmusclegroup">
+                <c:forEach var="musclegroup" items="${musclegroups}">
+                    <option value="${musclegroup.id}">${musclegroup.name}</option>
+                </c:forEach>
+            </select>
+
             <input type="submit" name="save" value="Salvar" />
+
             <h3>${return}</h3>
         </form>
         <a href="${pageContext.request.contextPath}/index.html">Home</a>

@@ -84,14 +84,14 @@ public class MuscleGroupDAOImpl implements GenericDAO {
             }
 
         } catch (SQLException ex) {
-            System.out.println("Problemas ao listar Grupo Muscular! Erro: " + ex.getMessage());
-            ex.printStackTrace();
+            System.out.println("Problemas ao listar Grupo Muscular DAO! Erro: " + ex.getMessage());
+
         } finally {
             try {
                 ConnectionFactory.closeConnection(conn, stmt, rs);
             } catch (Exception ex) {
                 System.out.println("Problemas ao fechar a conexão com o BD! Erro: " + ex.getMessage());
-                ex.printStackTrace();
+
             }
         }
         return result;

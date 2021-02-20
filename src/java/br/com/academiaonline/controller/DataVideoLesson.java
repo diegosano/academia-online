@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Diego
  */
-@WebServlet(name = "ListMuscleGroup", urlPatterns = {"/ListMuscleGroup"})
-public class ListMuscleGroup extends HttpServlet {
+@WebServlet(name = "DataVideoLesson", urlPatterns = {"/DataVideoLesson"})
+public class DataVideoLesson extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,11 +35,12 @@ public class ListMuscleGroup extends HttpServlet {
         response.setContentType("text/html;charset=ISO-8859-1");
         try {
             GenericDAO dao = new MuscleGroupDAOImpl();
+            //System.out.println(dao.findAll());
             request.setAttribute("musclegroups", dao.findAll());
-            request.getRequestDispatcher("musclegroup/list.jsp").forward(request, response);
+            request.getRequestDispatcher("videolesson/save.jsp").forward(request, response);
 
         } catch (Exception ex) {
-            System.out.println("Problemas ao listar Grupo Muscular (Controller)! Erro: " + ex.getMessage());
+            System.out.println("Problemas ao listar Videoaulas! Erro: " + ex.getMessage());
         }
     }
 

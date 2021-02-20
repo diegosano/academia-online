@@ -1,3 +1,4 @@
+
 CREATE TABLE musclegroup (
 	id_muscle_group serial NOT NULL,
 	name_muscle_group VARCHAR(300) NOT NULL UNIQUE,
@@ -14,5 +15,5 @@ CREATE TABLE videolesson (
     status_video_lesson  boolean NOT NULL DEFAULT TRUE,
     id_muscle_group integer NOT NULL,
     CONSTRAINT pk_video_lesson PRIMARY KEY (id_video_lesson),
-    CONSTRAINT fk_videolesson_musclegroup FOREIGN KEY (id_video_lesson) REFERENCES musclegroup (id_muscle_group)
+    CONSTRAINT fk_videolesson_musclegroup FOREIGN KEY (id_muscle_group) REFERENCES musclegroup (id_muscle_group)
 );

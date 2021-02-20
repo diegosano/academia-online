@@ -15,6 +15,13 @@ public class MuscleGroup {
     private String name;
     private String description;
 
+    public MuscleGroup(Integer id) {
+        this.id = id;
+    }
+
+    public MuscleGroup() {
+    }
+    
     /**
      * @return the id
      */
