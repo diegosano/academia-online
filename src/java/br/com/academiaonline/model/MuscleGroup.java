@@ -10,18 +10,23 @@ package br.com.academiaonline.model;
  * @author Diego
  */
 public class MuscleGroup {
-    
+
     private Integer id;
     private String name;
     private String description;
+
+    public MuscleGroup() {
+    }
 
     public MuscleGroup(Integer id) {
         this.id = id;
     }
 
-    public MuscleGroup() {
+    public MuscleGroup(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
-    
+
     /**
      * @return the id
      */
@@ -63,5 +68,5 @@ public class MuscleGroup {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
 }

@@ -13,12 +13,36 @@
         <title>Academia Online</title>
     </head>
     <body>
+        <h1>Lista de Videoaula(s)</h1>
 
-            <select name="idmusclegroup" id="idmusclegroup">
-                <c:forEach var="musclegroup" items="${musclegroups}">
-                    <option value="${musclegroup.id}">${musclegroup.name}</option>
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Data de publicação</th>
+                    <th>Status</th>
+                    <th colspan="2">Editar</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <c:forEach var="videolesson" items="${videolessons}">
+                    <tr>
+                        <td>${videolesson.id}</td>
+                        <td>${videolesson.name}</td>
+                        <td>${videolesson.description}</td>
+                        <td>${videolesson.publicationDate}</td>
+                        <td>${videolesson.status}</td>
+                        <td><a href="${pageContext.request.contextPath}/DeleteVideoLesson?idvideolesson=${videolesson.id}">Excluir</a></td>
+                        <td><a href="${pageContext.request.contextPath}/LoadVideoLesson?idvideolesson=${videolesson.id}">Alterar</a></td>
+                    </tr>
                 </c:forEach>
-            </select>
+            </tbody>
+
+        </table>
 
         <a href="${pageContext.request.contextPath}/index.html">Home</a>
     </body>
