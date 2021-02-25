@@ -99,16 +99,17 @@ public class MuscleGroupDAOImpl implements GenericDAO {
 
     @Override
     public void deleteById(Integer idObject) {
+
         PreparedStatement stmt = null;
 
-        String sql = "DELETE FROM public.musclegroup WHERE id_muscle_group = ?";
+        String sql = "DELETE FROM musclegroup WHERE id_muscle_group = ?";
 
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, idObject);
             stmt.executeUpdate();
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             System.out.println("Problemas ao deletar Grupo Muscular! Erro: " + ex.getMessage());
             ex.printStackTrace();
         } finally {
@@ -157,8 +158,7 @@ public class MuscleGroupDAOImpl implements GenericDAO {
     }
 
     @Override
-    public Boolean update(Object object
-    ) {
+    public Boolean update(Object object) {
         MuscleGroup muscleGroup = (MuscleGroup) object;
 
         PreparedStatement stmt = null;
@@ -170,7 +170,7 @@ public class MuscleGroupDAOImpl implements GenericDAO {
             stmt.setString(1, muscleGroup.getName());
             stmt.setString(2, muscleGroup.getDescription());
             stmt.setInt(3, muscleGroup.getId());
-            stmt.execute();
+            stmt.executeUpdate();
             return true;
 
         } catch (Exception ex) {
@@ -187,5 +187,4 @@ public class MuscleGroupDAOImpl implements GenericDAO {
             }
         }
     }
-
 }

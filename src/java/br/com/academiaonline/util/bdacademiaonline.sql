@@ -17,3 +17,7 @@ CREATE TABLE videolesson (
     CONSTRAINT pk_video_lesson PRIMARY KEY (id_video_lesson),
     CONSTRAINT fk_videolesson_musclegroup FOREIGN KEY (id_muscle_group) REFERENCES musclegroup (id_muscle_group)
 );
+
+CREATE TABLE person (
+
+);

@@ -7,6 +7,7 @@ package br.com.academiaonline.controller;
 
 import br.com.academiaonline.DAO.GenericDAO;
 import br.com.academiaonline.DAO.MuscleGroupDAOImpl;
+import br.com.academiaonline.DAO.VideoLessonDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Diego
  */
-@WebServlet(name = "DeleteMuscleGroup", urlPatterns = {"/DeleteMuscleGroup"})
-public class DeleteMuscleGroup extends HttpServlet {
+@WebServlet(name = "LoadVideoLesson", urlPatterns = {"/LoadVideoLesson"})
+public class LoadVideoLesson extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,16 +35,20 @@ public class DeleteMuscleGroup extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=ISO-8859-1");
-        
-        int idMuscleGroup = Integer.parseInt(request.getParameter("idmusclegroup"));
-        
+
+        int idVideoLesson = Integer.parseInt(request.getParameter("idvideolesson"));
+
         try {
-            GenericDAO dao = new MuscleGroupDAOImpl();
-            dao.deleteById(idMuscleGroup);
-            request.getRequestDispatcher("ListMuscleGroup").forward(request, response);
+            GenericDAO dao = new VideoLessonDAOImpl();
+            request.setAttribute("videolesson", dao.findById(idVideoLesson));
             
+            dao = new MuscleGroupDAOImpl();
+            request.setAttribute("musclegroups", dao.findAll());
+            
+            request.getRequestDispatcher("videolesson/save.jsp").forward(request, response);
+
         } catch (Exception ex) {
-            System.out.println("Problemas ao excluir Grupo Muscular! Erro: " + ex.getMessage());
+            System.out.println("Problemas ao carregar Videoaula! Erro: " + ex.getMessage());
             ex.printStackTrace();
         }
     }

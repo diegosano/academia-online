@@ -103,7 +103,7 @@ public class VideoLessonDAOImpl implements GenericDAO {
         } catch (SQLException ex) {
             System.out.println("Problemas ao listar Videoaulas! Erro: " + ex.getMessage());
             ex.printStackTrace();
-            
+
         } finally {
             try {
                 ConnectionFactory.closeConnection(conn, stmt, rs);
@@ -118,17 +118,111 @@ public class VideoLessonDAOImpl implements GenericDAO {
 
     @Override
     public void deleteById(Integer idObject) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        PreparedStatement stmt = null;
+
+        String sql = "DELETE FROM videolesson WHERE id_video_lesson = ?";
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idObject);
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("Problemas ao deletar Videoaula! Erro: " + ex.getMessage());
+            ex.printStackTrace();
+
+        } finally {
+            try {
+                ConnectionFactory.closeConnection(conn, stmt);
+            } catch (Exception ex) {
+                System.out.println("Problemas ao fechar a conexão com o BD! Erro: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
     }
 
     @Override
     public Object findById(Integer idObject) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        VideoLesson videoLesson = new VideoLesson();
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT * FROM videolesson WHERE id_video_lesson = ? ;";
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idObject);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                videoLesson = new VideoLesson();
+                videoLesson.setId(rs.getInt("id_video_lesson"));
+                videoLesson.setName(rs.getString("name_video_lesson"));
+                videoLesson.setDescription(rs.getString("description_video_lesson"));
+                videoLesson.setLink(rs.getString("link_video_lesson"));
+                videoLesson.setPublicationDate(rs.getDate("publication_date_video_lesson"));
+                videoLesson.setStatus(rs.getBoolean("status_video_lesson"));
+                videoLesson.setMuscleGroup(new MuscleGroup(rs.getInt("id_muscle_group")));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Problemas ao carregar Videoaula! Erro: " + ex.getMessage());
+            ex.printStackTrace();
+            
+        } finally {
+            try {
+                ConnectionFactory.closeConnection(conn, stmt, rs);
+            } catch (Exception ex) {
+                System.out.println("Problemas ao fechar a conexão com o BD! Erro: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+        return videoLesson;
     }
 
     @Override
     public Boolean update(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
+        VideoLesson videoLesson = (VideoLesson) object;
+
+        PreparedStatement stmt = null;
+
+        String sql = "UPDATE videolesson "
+                + "SET name_video_lesson=?, "
+                + "description_video_lesson=?, "
+                + "link_video_lesson=?, "
+                + "publication_date_video_lesson=?, "
+                + "status_video_lesson=?, "
+                + "id_muscle_group=? "
+                + "WHERE id_video_lesson=?;";
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, videoLesson.getName());
+            stmt.setString(2, videoLesson.getDescription());
+            stmt.setString(3, videoLesson.getLink());
+            stmt.setDate(4, new java.sql.Date(videoLesson.getPublicationDate().getTime()));
+            stmt.setBoolean(5, videoLesson.getStatus());
+            stmt.setInt(6, videoLesson.getMuscleGroup().getId());
+            stmt.setInt(7, videoLesson.getId());
+            stmt.executeUpdate();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Problemas ao alterar Videoaula! Erro: " + ex.getMessage());
+            ex.printStackTrace();
+            return false;
+
+        } finally {
+            try {
+                ConnectionFactory.closeConnection(conn, stmt);
+            } catch (Exception ex) {
+                System.out.println("Problemas ao fechar a conexão com o BD! Erro: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+    }
 }

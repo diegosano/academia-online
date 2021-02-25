@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -22,13 +23,13 @@
             <label for="linkvideolesson">Link: </label><input type="text" name="linkvideolesson" id="linkvideolesson" value="${videolesson.link}" required/>
             <label for="datevideolesson">Data de publicação: </label><input type="date" name="datevideolesson" id="datevideolesson" value="${videolesson.publicationDate}" required/>
 
-            <input type="radio" name="status" id="statustrue" value="true" checked/> <label for="statustrue">Ativo </label><br />
-            <input type="radio" name="status" id="statusfalse" value="false"/> <label for="statusfalse">Inativo </label><br />
+            <input type="radio" name="status" id="statustrue" value="true"  ${(videolesson.status || videolesson.id == null) ? 'checked' : ''} /> <label for="statustrue">Ativo </label><br />
+            <input type="radio" name="status" id="statusfalse" value="false" ${(videolesson.status || videolesson.id == null) ? '' : 'checked'} /> <label for="statusfalse">Inativo </label><br />
 
             <label for="idmusclegroup">Grupo Muscular:</label>
             <select name="idmusclegroup" id="idmusclegroup">
                 <c:forEach var="musclegroup" items="${musclegroups}">
-                    <option value="${musclegroup.id}">${musclegroup.name}</option>
+                    <option value="${musclegroup.id}" ${musclegroup.id == videolesson.muscleGroup.id ? 'selected' : ''} >${musclegroup.name}</option>
                 </c:forEach>
             </select>
 

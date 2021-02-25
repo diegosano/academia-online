@@ -16,7 +16,7 @@ public class Person {
     private Integer id;
     private String name;
     private String cpf;
-    private Date birthday;
+    private Date birthdayDate;
     private String email;
     private String type;
 
@@ -63,17 +63,17 @@ public class Person {
     }
 
     /**
-     * @return the birthday
+     * @return the birthdayDate
      */
-    public Date getBirthday() {
-        return birthday;
+    public Date getBirthdayDate() {
+        return birthdayDate;
     }
 
     /**
-     * @param birthday the birthday to set
+     * @param birthdayDate the birthdayDate to set
      */
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setBirthdayDate(Date birthdayDate) {
+        this.birthdayDate = birthdayDate;
     }
 
     /**
@@ -103,5 +103,4 @@ public class Person {
     public void setType(String type) {
         this.type = type;
     }
-
 }

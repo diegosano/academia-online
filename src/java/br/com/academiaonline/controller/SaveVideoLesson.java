@@ -6,7 +6,6 @@
 package br.com.academiaonline.controller;
 
 import br.com.academiaonline.DAO.GenericDAO;
-import br.com.academiaonline.DAO.MuscleGroupDAOImpl;
 import br.com.academiaonline.DAO.VideoLessonDAOImpl;
 import br.com.academiaonline.model.MuscleGroup;
 import br.com.academiaonline.model.VideoLesson;
@@ -50,17 +49,28 @@ public class SaveVideoLesson extends HttpServlet {
 
         try {
             GenericDAO dao = new VideoLessonDAOImpl();
-            if (dao.save(videoLesson)) {
-                message = "Videoaula cadastrada com sucesso!";
+            if (request.getParameter("idvideolesson").equals("")) {
+
+                if (dao.save(videoLesson)) {
+                    message = "Videoaula cadastrada com sucesso!";
+                } else {
+                    message = "Problemas ao cadastrar Videoaula!";
+                }
             } else {
-                message = "Problemas ao cadastrar Videoaula!";
+                
+                videoLesson.setId(Integer.parseInt(request.getParameter("idvideolesson")));
+                if (dao.update(videoLesson)) {
+                    message = "Videoaula alterada com sucesso!";
+                } else {
+                    message = "Problemas ao alterar Videoaula!";
+                }
             }
 
         } catch (Exception ex) {
             System.out.println("Problemas ao salvar Videoaula! Erro: " + ex.getMessage());
             ex.printStackTrace();
         }
-        
+
         request.setAttribute("return", message);
         request.getRequestDispatcher("videolesson/save.jsp").forward(request, response);
     }

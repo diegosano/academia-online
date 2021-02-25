@@ -8,7 +8,6 @@ package br.com.academiaonline.controller;
 import br.com.academiaonline.DAO.GenericDAO;
 import br.com.academiaonline.DAO.MuscleGroupDAOImpl;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
