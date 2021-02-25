@@ -12,7 +12,7 @@ package br.com.academiaonline.model;
 public class Employee {
 
     private Integer id;
-    private String resume;
+    private String curriculumVitae;
     private String address;
     private String city;
     private String state;
@@ -34,17 +34,17 @@ public class Employee {
     }
 
     /**
-     * @return the resume
+     * @return the curriculumVitae
      */
-    public String getResume() {
-        return resume;
+    public String getCurriculumVitae() {
+        return curriculumVitae;
     }
 
     /**
-     * @param resume the resume to set
+     * @param curriculumVitae the curriculumVitae to set
      */
-    public void setResume(String resume) {
-        this.resume = resume;
+    public void setCurriculumVitae(String curriculumVitae) {
+        this.curriculumVitae = curriculumVitae;
     }
 
     /**
