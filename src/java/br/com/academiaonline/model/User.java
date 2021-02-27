@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author Diego
  */
-public class User {
+public class User extends Person{
 
     private Integer id;
     private Date registratioDate;
@@ -22,6 +22,7 @@ public class User {
     /**
      * @return the id
      */
+    @Override
     public Integer getId() {
         return id;
     }
@@ -29,6 +30,7 @@ public class User {
     /**
      * @param id the id to set
      */
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }

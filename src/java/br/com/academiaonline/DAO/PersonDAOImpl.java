@@ -30,7 +30,7 @@ public class PersonDAOImpl {
         }
     }
 
-    private Integer save(Person person) {
+    public Integer save(Person person) {
 
         PreparedStatement stmt = null;
         ResultSet rs = null;
