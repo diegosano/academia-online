@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author Diego
  */
-public class User extends Person{
+public class User extends Person {
 
     private Integer id;
     private Date registratioDate;
