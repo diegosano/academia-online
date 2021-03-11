@@ -25,5 +25,6 @@
             <input type="submit" name="save" value="Salvar" />
             <h3>${return}</h3>
         </form>
+        <a href="${pageContext.request.contextPath}/index.html">Home</a>
     </body>
 </html>
