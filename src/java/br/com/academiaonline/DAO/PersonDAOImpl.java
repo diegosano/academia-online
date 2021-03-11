@@ -57,14 +57,12 @@ public class PersonDAOImpl {
 
         } catch (SQLException ex) {
             System.out.println("Problemas ao cadastrar Pessoa! Erro: " + ex.getMessage());
-            ex.printStackTrace();
 
         } finally {
             try {
                 ConnectionFactory.closeConnection(conn, stmt, rs);
             } catch (Exception ex) {
                 System.out.println("Problemas ao fechar a conexão com o BD! Erro: " + ex.getMessage());
-                ex.printStackTrace();
             }
         }
 

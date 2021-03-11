@@ -9,7 +9,7 @@ package br.com.academiaonline.model;
  *
  * @author Diego
  */
-public class Employee {
+public class Employee extends Person {
 
     private Integer id;
     private String curriculumVitae;
