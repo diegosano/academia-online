@@ -31,7 +31,7 @@ CREATE TABLE person (
 
 CREATE TABLE user_account (
     id_user SERIAL NOT NULL,
-    registratio_date_user DATE NOT NULL,
+    registration_date_user DATE NOT NULL,
     profile_picture_user BYTEA,
     id_person INTEGER NOT NULL,
     CONSTRAINT pk_user PRIMARY KEY (id_user),
