@@ -34,3 +34,9 @@ build/web/employee/curriculum/
 build/web/pfv5ee8.dpf
 
 build/web/WEB-INF/classes/.netbeans_automatic_build
+
+web/employee/curriculum/
+
+*.properties
+
+build/web/WEB-INF/classes/.netbeans_update_resources
