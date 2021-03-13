@@ -37,13 +37,13 @@ public class EmployeeDAOImpl implements GenericDAO {
         PreparedStatement stmt = null;
 
         String sql = "INSERT INTO employee "
-                + "curriculum_employee, "
+                + "(curriculum_employee, "
                 + "address_employee, "
                 + "city_employee, "
                 + "state_employee, "
                 + "postal_code_employee, "
                 + "telephone_employee, "
-                + "id_person "
+                + "id_person) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
         try {

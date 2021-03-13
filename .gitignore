@@ -28,3 +28,9 @@ hs_err_pid*
 nbproject/private/private.xml
 
 build/web/assets/images/batman_hero_avatar_comics-512.webp
+
+build/web/employee/curriculum/
+
+build/web/pfv5ee8.dpf
+
+build/web/WEB-INF/classes/.netbeans_automatic_build
