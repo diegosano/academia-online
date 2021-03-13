@@ -34,6 +34,7 @@ public class UserDAOImpl implements GenericDAO {
 
     @Override
     public Boolean save(Object object) {
+
         User user = (User) object;
         PreparedStatement stmt = null;
 
@@ -126,8 +127,7 @@ public class UserDAOImpl implements GenericDAO {
     }
 
     @Override
-    public Object findById(Integer idObject
-    ) {
+    public Object findById(Integer idObject) {
         User user = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -137,12 +137,14 @@ public class UserDAOImpl implements GenericDAO {
                 + "p.cpf_person, "
                 + "p.birthday_date_person, "
                 + "p.email_person, "
+                + "p.password_person, "
                 + "ua.registration_date_user "
                 + "FROM person p, user_account ua "
-                + "WHERE p.id_person AND ua.id_person = ?;";
+                + "WHERE p.id_person = ua.id_person AND p.id_person = ?;";
 
         try {
             stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idObject);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -153,6 +155,7 @@ public class UserDAOImpl implements GenericDAO {
                 user.setBirthdayDate(rs.getDate("birthday_date_person"));
                 user.setEmail(rs.getString("email_person"));
                 user.setRegistratioDate(rs.getDate("registration_date_user"));
+                user.setPassword(rs.getString("password_person"));
             }
         } catch (SQLException ex) {
             System.out.println("Problemas ao carregar User! Erro: " + ex.getMessage());
@@ -169,9 +172,41 @@ public class UserDAOImpl implements GenericDAO {
     }
 
     @Override
-    public Boolean update(Object object
-    ) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean update(Object object) {
+
+        User user = (User) object;
+        PreparedStatement stmt = null;
+
+        String sql = "UPDATE user_account "
+                + "SET registration_date_user = ?, "
+                + "profile_picture_user = ? "
+                + "WHERE id_person = ?;";
+
+        try {
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setDate(1, new java.sql.Date(user.getRegistratioDate().getTime()));
+            stmt.setBinaryStream(2, user.getProfilePicture(), user.getFileItem());
+            stmt.setInt(3, user.getId());
+
+            if (new PersonDAOImpl().update(user)) {
+                stmt.executeUpdate();
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Problemas ao alterar User! Erro: " + ex.getMessage());
+            return false;
+
+        } finally {
+            try {
+                ConnectionFactory.closeConnection(conn, stmt);
+            } catch (Exception ex) {
+                System.out.println("Problemas ao fechar a conexão com o BD! Erro: " + ex.getMessage());
+            }
+        }
     }
 
     public User getProfilePicture(int idUser) {

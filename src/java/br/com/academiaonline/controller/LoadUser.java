@@ -35,12 +35,12 @@ public class LoadUser extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=ISO-8859-1");
-        
-        int idObject = Integer.parseInt(request.getParameter("idobject"));
-        
+
+        int idPerson = Integer.parseInt(request.getParameter("idperson"));
+
         try {
             GenericDAO dao = new UserDAOImpl();
-            request.setAttribute("user", dao.findById(idObject));
+            request.setAttribute("user", dao.findById(idPerson));
             request.getRequestDispatcher("user/save.jsp").forward(request, response);
         } catch (Exception ex) {
             System.out.println("Problemas ao carregar User(controller)! Erro: " + ex.getMessage());

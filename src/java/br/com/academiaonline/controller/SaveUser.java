@@ -100,8 +100,8 @@ public class SaveUser extends HttpServlet {
             }
         }
 
-        String msg = null;
-        user.setType("C");
+        String msg;
+        user.setType("U");
         user.setRegistratioDate(new Date());
         try {
             GenericDAO dao = new UserDAOImpl();
@@ -122,7 +122,7 @@ public class SaveUser extends HttpServlet {
             request.setAttribute("return", msg);
             request.getRequestDispatcher("user/save.jsp").forward(request, response);
         } catch (Exception ex) {
-            System.out.println("Problemas no Servlet ao Cadastrar User! Erro: " + ex.getMessage());
+            System.out.println("Problemas no Servlet ao salvar User! Erro: " + ex.getMessage());
         }
 
     }

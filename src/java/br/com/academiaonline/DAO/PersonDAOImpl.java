@@ -68,4 +68,38 @@ public class PersonDAOImpl {
 
         return idPerson;
     }
+
+    public Boolean update(Person person) {
+
+        PreparedStatement stmt = null;
+        String sql = "UPDATE person "
+                + "SET name_person = ?, "
+                + "cpf_person = ?, "
+                + "birthday_date_person = ?, "
+                + "email_person = ?, "
+                + "password_person = md5(?) "
+                + "WHERE id_person = ?;";
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, person.getName());
+            stmt.setString(2, person.getCpf());
+            stmt.setDate(3, new java.sql.Date(person.getBirthdayDate().getTime()));
+            stmt.setString(4, person.getEmail());
+            stmt.setString(5, person.getPassword());
+            stmt.setInt(6, person.getId());
+            stmt.executeUpdate();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Problemas ao alterar Pessoa! Erro: " + ex.getMessage());
+            return false;
+
+        } finally {
+            try {
+                ConnectionFactory.closeConnection(conn, stmt);
+            } catch (Exception ex) {
+                System.out.println("Problemas ao fechar a conexão com o BD! Erro: " + ex.getMessage());
+            }
+        }
+    }
 }
