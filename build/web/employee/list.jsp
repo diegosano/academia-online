@@ -20,27 +20,25 @@
 
             <thead>
                 <tr>
-                    <th>Foto</th>
                     <th>Nome</th>
                     <th>CPF</th>
-                    <th>Data de nascimento</th>
+                    <th>Telefone/Celular</th>
                     <th>E-mail</th>
-                    <th>Data de cadastro</th>
+                    <th>Currículo</th>
                     <th colspan="2">Editar</th>
                 </tr>
             </thead>
 
             <tbody>
-                <c:forEach var="user" items="${users}">
+                <c:forEach var="employee" items="${employees}">
                     <tr>
-                        <td><img src="${pageContext.request.contextPath}/ShowUserProfilePicture?idperson=${user.id}" width="100" height="100" /></td>
-                        <td>${user.name}</td>
-                        <td>${user.cpf}</td>
-                        <td><fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${user.birthdayDate}"></fmt:formatDate></td>
-                        <td>${user.email}</td>
-                        <td><fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${user.registratioDate}"></fmt:formatDate></td>
-                        <td><a href="${pageContext.request.contextPath}/DeleteUser?idperson=${user.id}">Excluir</a></td>
-                        <td><a href="${pageContext.request.contextPath}/LoadUser?idperson=${user.id}">Alterar</a></td>
+                        <td>${employee.name}</td>
+                        <td>${employee.cpf}</td>
+                        <td>${employee.telephone}</td>
+                        <td>${employee.email}</td>
+                        <td><a href="${pageContext.request.contextPath}/employee/${employee.curriculumVitae}">Baixar</a></td>
+                        <td><a href="${pageContext.request.contextPath}/DeleteEmployee?idperson=${employee.id}&curriculum=${employee.curriculumVitae}">Excluir</a></td>
+                        <td><a href="${pageContext.request.contextPath}/LoadEmployee?idperson=${employee.id}">Alterar</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

@@ -22,6 +22,7 @@ public class Employee extends Person {
     /**
      * @return the id
      */
+    @Override
     public Integer getId() {
         return id;
     }
@@ -29,6 +30,7 @@ public class Employee extends Person {
     /**
      * @param id the id to set
      */
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
