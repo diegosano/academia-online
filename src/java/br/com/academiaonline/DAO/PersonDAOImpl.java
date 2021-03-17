@@ -102,4 +102,43 @@ public class PersonDAOImpl {
             }
         }
     }
+
+    public Person login(String email, String password) {
+
+        Person person = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT "
+                + "p.id_person, "
+                + "p_name_person, "
+                + "p.type_person "
+                + "FROM person p "
+                + "WHERE p.email_person = ? "
+                + "AND p.password_person = md5(?);";
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                person = new Person();
+                person.setId(rs.getInt("id_person"));
+                person.setName("name_person");
+                person.setType("type_person");
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Problemas ao logar! Erro: " + ex.getMessage());
+        } finally {
+            try {
+                ConnectionFactory.closeConnection(conn, stmt);
+            } catch (Exception ex) {
+                System.out.println("Problemas ao fechar a conexão com o BD! Erro: " + ex.getMessage());
+            }
+        }
+        return person;
+    }
 }
