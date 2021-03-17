@@ -52,3 +52,18 @@ CREATE TABLE employee (
 );
 
 */
+
+CREATE TABLE role (
+    id SERIAL NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    description TEXT ,
+    CONSTRAINT pk_role PRIMARY KEY (id)
+);
+
+CREATE TABLE employee_role (
+    id_employee INTEGER NOT NULL,
+    id_role INTEGER NOT NULL,
+    CONSTRAINT pk_employee_role PRIMARY KEY (id_role, id_employee),
+    CONSTRAINT fk_employee_role FOREIGN KEY (id_role) REFERENCES role(id),
+    CONSTRAINT fk_role_employee FOREIGN KEY (id_employee) REFERENCES employee(id_employee)
+);
