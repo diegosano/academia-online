@@ -111,7 +111,7 @@ public class PersonDAOImpl {
 
         String sql = "SELECT "
                 + "p.id_person, "
-                + "p_name_person, "
+                + "p.name_person, "
                 + "p.type_person "
                 + "FROM person p "
                 + "WHERE p.email_person = ? "

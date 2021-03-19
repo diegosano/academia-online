@@ -5,9 +5,8 @@
  */
 package br.com.academiaonline.controller;
 
-import br.com.academiaonline.DAO.PersonDAOImpl;
-import br.com.academiaonline.model.Person;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +18,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Diego
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
+public class Logout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,47 +32,14 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=ISO-8859-1");
-        if (request.getParameter("action").equals("login")) {
-
-            if (!request.getParameter("email").equals("") && !request.getParameter("password").equals("")) {
-
-                Person person = null;
-
-                try {
-
-                    PersonDAOImpl personDAO = new PersonDAOImpl();
-                    person = personDAO.login(request.getParameter("email"), request.getParameter("password"));
-
-                    if (person != null) {
-                        HttpSession session = request.getSession(true);
-                        session.setMaxInactiveInterval(600);
-                        session.setAttribute("person", person);
-                        session.setAttribute("welcome", "Seja bem-vindo(a) " + person.getName() + "!");
-                        
-                        if (person.getType().equalsIgnoreCase("E")) {
-                            request.getRequestDispatcher("employee/index.jsp").forward(request, response);
-                        } else if (person.getType().equalsIgnoreCase("U")) {
-                            request.getRequestDispatcher("user/index.jsp").forward(request, response);
-                        } else {
-                            response.sendRedirect("home.html");
-                        }
-                    } else {
-                        erro(request, response);
-                    }
-
-                } catch (Exception ex) {
-                    System.out.println("Problemas ao logar Person! Erro: " + ex.getMessage());
-                }
-
-            } else {
-                erro(request, response);
-            }
-
-        } else {
-            HttpSession session = request.getSession(true);
+        response.setContentType("text/html;charset=UTF-8");
+        try {
+            HttpSession session = request.getSession(false);
             session.invalidate();
-            response.sendRedirect("index.jsp");
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        } catch (IOException | ServletException ex) {
+            System.out.println("Problemas ao efetuar logout! " + ex.getMessage());
+
         }
     }
 
@@ -115,10 +81,5 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void erro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("erro", "Email/Senha não válidos! Tente novamente!");
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-    }
 
 }
