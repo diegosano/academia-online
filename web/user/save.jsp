@@ -19,12 +19,13 @@
             <label for="nameuser">Nome: </label><input type="text" name="nameuser" id="nameuser" value="${user.name}" required/>
             <label for="nameuser">CPF:  </label><input type="text" name="cpfuser" id="cpfuser" value="${user.cpf}" required/>
             <label for="nameuser">Data de nascimento:  </label><input type="date" name="birthdaydateuser" id="birthdaydateuser" value="${user.birthdayDate}" required/>
-            <label for="nameuser">Foto:  </label><input type="file" name="profilepictureuser" id="profilepictureuser" /> <img src="${pageContext.request.contextPath}/ShowUserProfilePicture?idperson=${user.id}" width="100" height="100" />
+            <label for="nameuser">Foto:  </label><input type="file" accept="image/*" name="profilepictureuser" id="profilepictureuser" /> <img id="img-profile-picture" src="${pageContext.request.contextPath}/ShowUserProfilePicture?idperson=${user.id}" width="100" height="100" />
             <label for="nameuser">E-mail:  </label><input type="email" name="emailuser" id="emailuser" value="${user.email}" required/>
             <label for="nameuser">Senha:  </label><input type="password" name="passworduser" id="passworduser" value="${user.password}" required/>
             <input type="submit" name="save" value="Salvar" />
             <h3>${return}</h3>
         </form>
-        <a href="${pageContext.request.contextPath}/index.html">Home</a>
+        <a href="${pageContext.request.contextPath}/home.html">Home</a>
+        <script src="${pageContext.request.contextPath}/assets/js/script.js" ></script>
     </body>
 </html>

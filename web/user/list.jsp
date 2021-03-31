@@ -47,6 +47,6 @@
 
         </table>
 
-        <a href="${pageContext.request.contextPath}/index.html">Home</a>
+        <a href="${pageContext.request.contextPath}/home.html">Home</a>
     </body>
 </html>

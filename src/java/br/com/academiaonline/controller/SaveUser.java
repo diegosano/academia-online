@@ -9,7 +9,10 @@ import br.com.academiaonline.DAO.GenericDAO;
 import br.com.academiaonline.DAO.UserDAOImpl;
 import br.com.academiaonline.util.Conversions;
 import br.com.academiaonline.model.User;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -66,8 +69,17 @@ public class SaveUser extends HttpServlet {
             while (it.hasNext()) {
                 FileItem fileItem = (FileItem) it.next();
                 if (!fileItem.isFormField()) {
-                    user.setProfilePicture(fileItem.getInputStream());
-                    user.setFileItem((int) fileItem.getSize());
+                    if (fileItem.getSize() != 0) {
+                        user.setProfilePicture(fileItem.getInputStream());
+                        user.setFileItem((int) fileItem.getSize());
+                        
+                    } else {
+                        File file = new File("C:\\Users\\Diego\\Documents\\NetBeansProjects\\ProjetoAcademiaOnline\\web\\assets\\images\\avatar.webp");
+                        System.out.println(file);
+                        InputStream targetStream = new FileInputStream(file);
+                        user.setProfilePicture(targetStream);
+                        user.setFileItem((int) file.length());
+                    }
                 } else {
                     String dados = fileItem.getFieldName();
                     switch (dados) {

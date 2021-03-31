@@ -126,29 +126,20 @@ public class SecutiryFilter implements Filter {
         boolean isLoginRequest = httpServletRequest.getRequestURI().equals(loginURI);
         boolean isLoginPage = httpServletRequest.getRequestURI().endsWith("login.jsp");
 
-        System.out.println(httpServletRequest.getRequestURI());
-        System.out.println(session);
-        System.out.println(isLoggedIn);
-        System.out.println(isLoginRequest);
-        System.out.println(isLoginPage);
-
         if (isLoggedIn && (isLoginRequest || isLoginPage)) {
             // the user is already logged in and he's trying to login again
             // then forward to the homepage
-            System.out.println("primeiro if");
             httpServletRequest.getRequestDispatcher("/home.html").forward(request, response);
 
         } else if (!isLoggedIn && isLoginRequired(httpServletRequest)) {
             // the user is not logged in, and the requested page requires
             // authentication, then forward to the login page
-            System.out.println("segundo if");
             String loginPage = "/login.jsp";
             RequestDispatcher dispatcher = httpServletRequest.getRequestDispatcher(loginPage);
             dispatcher.forward(request, response);
         } else {
             // for other requested pages that do not require authentication
             // or the user is already logged in, continue to the destination
-            System.out.println("else");
             chain.doFilter(request, response);
         }
     }

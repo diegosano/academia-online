@@ -209,16 +209,16 @@ public class UserDAOImpl implements GenericDAO {
         }
     }
 
-    public User getProfilePicture(int idUser) {
+    public User getProfilePicture(int idPerson) {
 
         User user = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "SELECT profile_picture_user FROM user_account WHERE id_user=?;";
+        String sql = "SELECT profile_picture_user FROM user_account WHERE id_person=?;";
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idUser);
+            stmt.setInt(1, idPerson);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
